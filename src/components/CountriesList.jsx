@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CountryDetails from "./CountryDetails.jsx";
 import SearchBar from "./SearchBar.jsx";
-import Card from "./Card.jsx";
+import Card from "./CountryCard.jsx";
 
 export default function CountriesList({ countries, error }) {
   const [searchText, setSearchText] = useState("");
