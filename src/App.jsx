@@ -1,14 +1,18 @@
+import { useStore } from "./store.js";
+import { useEffect } from "react";
 import Header from "./components/Header.jsx";
-import Countries from "./components/Countries.jsx";
-import SearchBar from "./components/SearchBar.jsx";
+import CountriesList from "./components/CountriesList.jsx";
 import FilterBar from "./components/FilterBar.jsx";
 
 export default function App() {
+  const { fetchCountries, countries, error } = useStore();
+  useEffect(() => {
+    fetchCountries();
+  }, []);
   return (
     <>
       <Header />
-      <Countries />
-      <SearchBar />
+      <CountriesList countries={countries} error={error} />
       <FilterBar />
     </>
   );
