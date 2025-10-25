@@ -1,36 +1,51 @@
 import { useState } from "react";
 import CountryDetails from "./CountryDetails.jsx";
 import SearchBar from "./SearchBar.jsx";
-import Card from "./CountryCard.jsx";
+import FilterBar from "./FilterBar.jsx";
+import CountryCard from "./CountryCard.jsx";
 
 export default function CountriesList({ countries, error }) {
-  const [searchText, setSearchText] = useState("");
+  const [searchCountry, setSearchCountry] = useState("");
 
   const [selectedCountry, setSelectedCountry] = useState(null);
+  const [selectedRegion, setSelectedRegion] = useState(null);
+
   const filteredCountries = countries.filter((c) => {
-    return c.name.official.toLowerCase().includes(searchText.toLowerCase());
+    return c.name.official.toLowerCase().includes(searchCountry.toLowerCase());
   });
+
+  let shownCountries = [];
+
+  if (searchCountry === "") {
+    shownCountries = countries;
+  } else {
+    shownCountries = filteredCountries;
+  }
 
   if (error) return <p className="text-red-500">{error}</p>;
   return (
     <>
-      <SearchBar searchText={searchText} onFilterTextChange={setSearchText} />
+      <SearchBar
+        onSearchCountry={searchCountry}
+        onTextChange={setSearchCountry}
+      />
+      <FilterBar onSelected={setSelectedRegion} />
 
       <div className="grid grid-cols-4 gap-2">
-        {searchText === ""
-          ? countries.map((country) => (
-              <Card
+        {selectedRegion !== null
+          ? selectedRegion.map((country) => (
+              <CountryCard
                 onSelected={setSelectedCountry}
                 key={country.name.official}
                 country={country}
-              ></Card>
+              />
             ))
-          : filteredCountries.map((country) => (
-              <Card
+          : shownCountries.map((country) => (
+              <CountryCard
                 onSelected={setSelectedCountry}
                 key={country.name.official}
                 country={country}
-              ></Card>
+              />
             ))}
 
         {selectedCountry && (

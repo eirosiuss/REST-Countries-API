@@ -1,16 +1,16 @@
-export default function SearchBar({ filterText, onFilterTextChange }) {
+export default function SearchBar({onSearchCountry, onTextChange }) {
   return (
     <div>
-      <form noValidate>
+      <form noValidate onSubmit={(e) => e.preventDefault()}>
         <label htmlFor="country">Search</label>
         <input
           type="text"
           id="country"
           name="country"
           placeholder="Search..."
-          value={filterText}
+          value={onSearchCountry}
           onChange={(e) => {
-            onFilterTextChange(e.target.value);
+            onTextChange(e.target.value);
           }}
         />
       </form>

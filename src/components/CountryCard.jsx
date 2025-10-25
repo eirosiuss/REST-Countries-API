@@ -1,4 +1,4 @@
-export default function Card({ country, onSelected }) {
+export default function CountryCard({ country, onSelected }) {
   return (
     <article
       className="bg-amber-400"
