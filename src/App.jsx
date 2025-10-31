@@ -20,8 +20,6 @@ export default function App() {
       setError(error.message);
     }
   };
-
-
   useEffect(() => {
     fetchCountries();
   }, []);

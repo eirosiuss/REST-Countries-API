@@ -15,11 +15,21 @@ export default function CountriesList({ countries, error }) {
   });
 
   let shownCountries = [];
-
   if (searchCountry === "") {
     shownCountries = countries;
   } else {
     shownCountries = filteredCountries;
+  }
+
+  let selectedRegionSearch = [];
+  if (searchCountry === "") {
+    selectedRegionSearch = selectedRegion;
+  } else if (searchCountry !== "" && selectedRegion !== null) {
+    selectedRegionSearch = selectedRegion.filter((c) => {
+      return c.name.official
+        .toLowerCase()
+        .includes(searchCountry.toLowerCase());
+    });
   }
 
   if (error) return <p className="text-red-500">{error}</p>;
@@ -33,7 +43,7 @@ export default function CountriesList({ countries, error }) {
 
       <div className="grid grid-cols-4 gap-2">
         {selectedRegion !== null
-          ? selectedRegion.map((country) => (
+          ? selectedRegionSearch.map((country) => (
               <CountryCard
                 onSelected={setSelectedCountry}
                 key={country.name.official}
